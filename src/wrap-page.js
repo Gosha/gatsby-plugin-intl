@@ -44,7 +44,10 @@ export default ({ element, props }, pluginOptions) => {
   const { pageContext, location } = props
   const { defaultLanguage } = pluginOptions
   const { intl } = pageContext
-  const { language, languages, redirect, routed, originalPath } = intl
+  const { language, languages, redirect, routed } = intl
+  // Enable redirecting from `/no-lang/:client-router-path` -> `/:lang/no-lang/:client-router-path`
+  // instead of `/no-lang/:client-router-path` -> `/:lang/no-lang/`
+  const originalPath = location.pathname || intl.originalPath
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
